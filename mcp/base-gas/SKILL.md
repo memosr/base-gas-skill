@@ -39,10 +39,10 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Returns |
 |------|----------|-------|---------|
-| Current gas | `GET /gas` | $0.005 | Base fee, low/med/high priority tiers, cost estimate |
-| Compare chains | `GET /gas/compare` | $0.01 | Base, OP, Arbitrum, Ethereum ranked cheapest first |
-| Historical trend | `GET /gas/history` | $0.012 | Time series, min/max/avg/median, cheap-or-expensive verdict |
-| Cheapest hours | `GET /gas/cheapest-window` | $0.02 | Hourly averages ranked, cheapest hour, savings percent |
+| Current gas | `GET /gas` | $0.005 | Base fee, low/med/high priority tiers, cost estimate in ETH and USD |
+| Compare chains | `GET /gas/compare` | $0.01 | Base, OP, Arbitrum, Ethereum ranked cheapest first, cost in USD |
+| Historical trend | `GET /gas/history` | $0.01 | Time series, min/max/avg/median, cheap-or-expensive verdict |
+| Cheapest hours | `GET /gas/cheapest-window` | $0.02 | Hours to avoid, cheapest hour, savings vs the average hour and in USD |
 | Data coverage | `GET /health` | **free** | How much history has been collected so far |
 
 See [rules/choosing-an-endpoint.md](rules/choosing-an-endpoint.md) for which route answers which question.
@@ -144,7 +144,8 @@ agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/gas/history
 
 - [ ] Pick the gasLimit for the operation type
 - [ ] Call `/gas` with that gasLimit
-- [ ] Read `estimatedTransferCost.eth`
+- [ ] Read `estimatedTransferCost.usd` for the cost in dollars (or `.eth`)
+- [ ] If `usd` is `null`, the price feed was unavailable: fall back to `.eth`
 
 ```
 agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/gas?gasLimit=85000")
@@ -165,7 +166,9 @@ agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/gas/compare
 - [ ] Check history coverage: `GET /health` (free)
 - [ ] If coverage is at least 24 hours, call `/gas/cheapest-window`
 - [ ] If `hasDailyCycle` is `false`, report `recommendation` and run the job whenever
-- [ ] If `true`, schedule the job for `cheapestHourUtc` (convert from UTC)
+- [ ] If `true`, keep the job out of `avoidHoursUtc` (worst first)
+- [ ] Check `savingsUsd.vsAverageHour`: if the saving is negligible at your volume, run whenever
+- [ ] Otherwise schedule the job for `cheapestHourUtc` (convert from UTC)
 
 ```
 agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/health")
@@ -193,7 +196,7 @@ agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/gas/cheapes
 
 1. **Check `/health` before history calls.** It is free and tells you whether the data is deep enough to be worth paying for.
 2. **One `/gas/compare` beats four `/gas` calls.** It reads all four chains in a single paid request.
-3. **Pass `gasLimit` instead of doing the math.** The estimate is returned already priced for the operation you care about.
+3. **Pass `gasLimit` instead of doing the math.** The estimate is returned already priced for the operation you care about, in gwei, ETH and USD.
 4. **Do not poll.** Base blocks are two seconds apart but gas moves slowly; sampling more than once a minute spends money for no new information.
 
 ## Notes

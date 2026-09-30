@@ -38,10 +38,10 @@ Both directories contain the same skill. Pick the mode that matches your setup.
 
 | Task | Route | Price |
 |------|-------|-------|
-| Current gas, cost estimate for any gas limit | `GET /gas` | $0.005 |
+| Current gas, cost estimate for any gas limit (ETH and USD) | `GET /gas` | $0.005 |
 | Compare Base, OP Mainnet, Arbitrum, Ethereum | `GET /gas/compare` | $0.01 |
-| Historical trend with a cheap/normal/expensive verdict | `GET /gas/history` | $0.012 |
-| Cheapest hours of day, ranked, with savings percent | `GET /gas/cheapest-window` | $0.02 |
+| Historical trend with a cheap/normal/expensive verdict | `GET /gas/history` | $0.01 |
+| Hours to avoid and cheapest hour, with savings in % and USD | `GET /gas/cheapest-window` | $0.02 |
 | How much history has been collected | `GET /health` | free |
 
 Prices are set by the endpoint and published in its [OpenAPI document](https://base-gas-x402-production.up.railway.app/openapi.json), which is the source of truth if this table ever drifts.
