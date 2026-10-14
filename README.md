@@ -38,7 +38,7 @@ Both directories contain the same skill. Pick the mode that matches your setup.
 
 | Task | Route | Price |
 |------|-------|-------|
-| Current gas, cost estimate for any gas limit (ETH and USD) | `GET /gas` | $0.005 |
+| Current gas, cost estimate for any gas limit (ETH and USD) | `GET /gas` | $0.002 |
 | Compare Base, OP Mainnet, Arbitrum, Ethereum | `GET /gas/compare` | $0.01 |
 | Historical trend with a cheap/normal/expensive verdict | `GET /gas/history` | $0.01 |
 | Hours to avoid and cheapest hour, with savings in % and USD | `GET /gas/cheapest-window` | $0.02 |

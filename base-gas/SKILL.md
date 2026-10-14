@@ -37,7 +37,7 @@ See [rules/getting-started.md](rules/getting-started.md) for installation and wa
 
 | Task | Endpoint | Price | Returns |
 |------|----------|-------|---------|
-| Current gas | `GET /gas` | $0.005 | Base fee, low/med/high priority tiers, cost estimate in ETH and USD |
+| Current gas | `GET /gas` | $0.002 | Base fee, low/med/high priority tiers, cost estimate in ETH and USD |
 | Compare chains | `GET /gas/compare` | $0.01 | Base, OP, Arbitrum, Ethereum ranked cheapest first, cost in USD |
 | Historical trend | `GET /gas/history` | $0.01 | Time series, min/max/avg/median, cheap-or-expensive verdict |
 | Cheapest hours | `GET /gas/cheapest-window` | $0.02 | Hours to avoid, cheapest hour, savings vs the average hour and in USD |

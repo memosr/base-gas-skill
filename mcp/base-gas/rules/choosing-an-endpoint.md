@@ -21,7 +21,7 @@ Four paid routes answer four different questions. Picking the wrong one either o
 
 ## Do not loop `/gas` to build history
 
-Calling `/gas` repeatedly to assemble a time series costs $0.005 per sample and produces worse data than `/gas/history`, which is backed by continuous sampling that already happened. One `/gas/history` call at $0.01 replaces an unbounded number of `/gas` calls.
+Calling `/gas` repeatedly to assemble a time series costs $0.002 per sample and produces worse data than `/gas/history`, which is backed by continuous sampling that already happened. One `/gas/history` call at $0.01 replaces an unbounded number of `/gas` calls.
 
 ## Do not loop `/gas` across chains
 
