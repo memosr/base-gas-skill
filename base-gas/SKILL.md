@@ -21,13 +21,19 @@ description: |
   Call `GET /health` first (free) before paying for history endpoints. Use `npx agentcash@latest fetch` for the paid routes.
 metadata:
   version: 1
+  openclaw:
+    emoji: "⛽"
+    homepage: https://base-gas-x402.vercel.app
+    requires:
+      anyBins:
+        - npx
 ---
 
 # Base Gas
 
 Live and historical Base mainnet gas data through x402-protected endpoints, served from `https://base-gas-x402-production.up.railway.app`.
 
-All values are read directly from the chain. Fees are returned in gwei.
+All values are read directly from the chain. Fees are returned in gwei; transaction costs also come back in ETH and USD.
 
 ## Setup
 
