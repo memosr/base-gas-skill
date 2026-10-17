@@ -123,7 +123,7 @@ Both history endpoints depend on samples collected over time. Check coverage bef
 agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/health")
 ```
 
-**Returns:** `samples`, `hoursCovered`, `oldestSample`, `newestSample`, `sampleIntervalSeconds`, `retentionHours`.
+**Returns:** under `history`: `samples`, `hoursCovered`, `oldestSample`, `newestSample`, `sampleIntervalSeconds`, `retentionHours`, `durable` (whether history survives a redeploy) and `lastError`. Also `nextSteps`, ready-to-run commands for the paid routes.
 
 If `hoursCovered` is smaller than the window you need, the answer will be thin. Every paid response also carries a `coverage` object so the depth of the underlying data is always visible.
 
