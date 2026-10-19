@@ -8,6 +8,7 @@ Four paid routes answer four different questions. Picking the wrong one either o
 |--------------------|-------|-----|
 | "What is gas right now?" | `/gas` | A single point-in-time reading |
 | "How much will this cost?" | `/gas` with `gasLimit` | The estimate comes back already priced for the operation |
+| "What fee should I set?" | `/gas` | `suggestedFees.medium` is ready to pass to a wallet or viem |
 | "Is gas high or low?" | `/gas/history` | Requires a baseline to compare against |
 | "Should I send now or wait?" | `/gas/history` then `/gas/cheapest-window` | The verdict answers now; the window answers when |
 | "Which chain is cheapest?" | `/gas/compare` | Reads four chains in one paid call |

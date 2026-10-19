@@ -6,6 +6,7 @@ description: |
   USE FOR:
   - Checking current gas prices on Base before sending a transaction
   - Estimating transaction cost for a transfer, swap, NFT mint, or contract deploy
+  - Getting ready-to-sign maxFeePerGas / maxPriorityFeePerGas for a Base transaction
   - Deciding whether gas is currently cheap or expensive
   - Comparing gas costs across Base, OP Mainnet, Arbitrum, and Ethereum
   - Finding the cheapest hour of day to transact on Base
@@ -13,6 +14,7 @@ description: |
 
   TRIGGERS:
   - "gas price", "gas fees", "gwei", "base fee", "priority fee"
+  - "maxFeePerGas", "what fee should I set", "fee for my transaction"
   - "how much to send", "transaction cost", "cost to swap", "cost to mint"
   - "is gas cheap right now", "should I transact now or wait"
   - "compare gas", "cheapest chain", "which L2 is cheaper"
@@ -22,7 +24,7 @@ description: |
 mcp:
   - agentcash
 metadata:
-  version: 1
+  version: 2
 ---
 
 # Base Gas
@@ -72,7 +74,7 @@ agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/gas?gasLimi
 | Uniswap swap | 180000 |
 | Contract deploy | 1500000 |
 
-**Returns:** `baseFeePerGas`, `priorityFeePerGas` (low/medium/high), `gasPrice`, `estimatedTransferCost` (gwei and ETH), `blockNumber`, `fetchedAt`.
+**Returns:** `baseFeePerGas`, `priorityFeePerGas` (low/medium/high), `gasPrice`, `estimatedTransferCost` (gwei, ETH and USD), `suggestedFees` (low/medium/high `maxFeePerGas` and `maxPriorityFeePerGas` in wei, ready to sign), `blockNumber`, `fetchedAt`.
 
 ## Compare Chains
 
@@ -146,6 +148,7 @@ agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/gas/history
 - [ ] Call `/gas` with that gasLimit
 - [ ] Read `estimatedTransferCost.usd` for the cost in dollars (or `.eth`)
 - [ ] If `usd` is `null`, the price feed was unavailable: fall back to `.eth`
+- [ ] To send the transaction, use `suggestedFees.medium` as-is (wei strings). `maxFeePerGas` is a ceiling: the chain charges base fee plus priority and refunds the rest
 
 ```
 agentcash.fetch(url="https://base-gas-x402-production.up.railway.app/gas?gasLimit=85000")
